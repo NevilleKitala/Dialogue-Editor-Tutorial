@@ -53,11 +53,18 @@ namespace DialogueEditor.Dialogue.Editor
             return false;   // we did not handle the open.
         }
 
+        private void OnInspectorUpdate()
+        {
+            if (currentDialogueContainer == null)
+                Close();
+        }
+
         private void OnEnable()
         {
             ConstructGraphView();
             GenerateToolbar();
-            Load();
+            if(currentDialogueContainer)
+                Load();
         }
 
         private void OnDisable()
