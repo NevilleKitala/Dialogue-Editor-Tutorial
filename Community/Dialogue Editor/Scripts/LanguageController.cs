@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace DialogueEditor.Dialogue.Scripts
 {
@@ -19,6 +21,29 @@ namespace DialogueEditor.Dialogue.Scripts
             else
             {
                 Destroy(gameObject);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            string locale = LocalizationSettings.Instance.GetSelectedLocale().LocaleName;
+            switch (locale)
+            {
+                case "English":
+                    Language = LanguageType.English;
+                    break;
+                case "Swahili":
+                    Language = LanguageType.English;
+                    break;
+                case "French":
+                    Language = LanguageType.French;
+                    break;
+                case "German":
+                    Language = LanguageType.German;
+                    break;
+                case "Italian":
+                    Language = LanguageType.Italian;
+                    break;
             }
         }
     }
