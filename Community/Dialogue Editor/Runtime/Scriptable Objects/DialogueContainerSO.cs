@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DialogueEditor.Dialogue
 {
-    [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue Editor/Dialogue Object")]
+    [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue Object")]
     [System.Serializable]
     public class DialogueContainerSO : ScriptableObject
     {
@@ -17,7 +17,11 @@ namespace DialogueEditor.Dialogue
         public List<ModifierData> ModifierData = new List<ModifierData>();
         public List<BranchData> BranchData = new List<BranchData>();
         public List<DialogueData> DialogueData = new List<DialogueData>();
-  
+        public List<ChoiceData> ChoiceData = new List<ChoiceData>();
+        public List<ChoiceConnectorData> ChoiceConnectorData = new List<ChoiceConnectorData>();
+
+        public List<ScriptableObject> variables = new List<ScriptableObject>();
+
         public List<BaseData> AllData
         {
             get
@@ -29,11 +33,23 @@ namespace DialogueEditor.Dialogue
                 tmp.AddRange(ModifierData);
                 tmp.AddRange(BranchData);
                 tmp.AddRange(DialogueData);
+                tmp.AddRange(ChoiceData);
+                tmp.AddRange(ChoiceConnectorData);
 
                 return tmp;
             }
         }
+
+        private void OnDestroy()
+        {
+            foreach(ScriptableObject so in variables)
+            {
+                if(so != null)
+                    Destroy(so);
+            }
+        }
     }
+
 
     [System.Serializable]
     public class NodeLinkData
