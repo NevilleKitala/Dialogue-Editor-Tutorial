@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
 namespace DialogueEditor.Dialogue.Scripts

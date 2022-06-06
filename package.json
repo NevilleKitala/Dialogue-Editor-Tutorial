@@ -1,9 +1,9 @@
 {
   "name": "com.dialogueeditor.dialogueeditor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Dialogue Editor",
   "description": "This tool makes use of Unity Scriptable Objects ,Graphview and TextMeshPro, to allow game developers to easily create dynamic text between dialogueAssetss, which can have in game consequences to the state of the game, all from an easy to use UI Interface.",
-  "unity": "2020.3",
+  "unity": "2021",
   "unityRelease": "6f1",
   "documentationUrl": "https://github.com/KasperGameDev/Dialogue-Editor-Tutorial/tree/Community_Contribute#readme",
   "dependencies": {
@@ -44,7 +44,7 @@
      "com.unity.modules.xr": "1.0.0"
    },
   "author": {
-    "name": "KasperGameDev, NevilleKitala",
-    "url": "https://github.com/KasperGameDev/Dialogue-Editor-Tutorial/blob/Community_Contribute/"
+    "name": "NevilleKitala",
+    "url": "https://github.com/NevilleKitala/Dialogue-Editor-Tutorial/"
   }
 }

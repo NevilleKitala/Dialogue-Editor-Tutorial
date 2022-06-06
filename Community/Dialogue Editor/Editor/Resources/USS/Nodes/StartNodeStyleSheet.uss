@@ -8,11 +8,20 @@
 
 .BoxRow{
 	align-self: flex-end;
-	Padding: 1px;
+	padding: 1px;
 	margin: 1px;
 }
 
 .BtnBox{
 	padding: 0px;
 	margin: 0px;
+}
+
+.StartEventBox{
+	flex-direction: column;
+	border-color: #5C5C5C;
+	border-width: 4px;
+	padding: 5px;
+	background-color: rgb(50, 50, 50);
+	margin-bottom: 1px;
 }

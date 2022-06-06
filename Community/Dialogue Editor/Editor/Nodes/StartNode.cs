@@ -48,11 +48,11 @@ namespace DialogueEditor.Dialogue.Editor
         public void AddScriptableActor(Container_Actor actorData = null)
         {
             Box boxContainer = new Box();
-            boxContainer.AddToClassList("EventBox");
+            boxContainer.AddToClassList("StartEventBox");
             Container_Actor tempActor = new Container_Actor();
 
             Box buttonsBox = new Box();
-            buttonsBox.AddToClassList("BtnBox");
+            buttonsBox.AddToClassList("TopBox");
 
             Button removeActor = GetNewButton(" - ", "MoveBtn");
 
@@ -88,8 +88,8 @@ namespace DialogueEditor.Dialogue.Editor
             buttonsBox.Add(removeActor);
             buttonsBox.Add(deleteActor);
 
-            boxContainer.Add(dialogueAssetsField);
             boxContainer.Add(buttonsBox);
+            boxContainer.Add(dialogueAssetsField);
             extensionContainer.Add(boxContainer);
             RefreshExpandedState();
         }

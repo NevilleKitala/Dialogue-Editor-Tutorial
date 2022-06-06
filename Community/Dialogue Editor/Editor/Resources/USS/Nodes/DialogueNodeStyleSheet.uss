@@ -74,7 +74,7 @@
 }
 
 .SentenceTitle{
-	align: middle;
+	-unity-text-align: middle-center;
 }
 /* ----------------- Images -----------------*/
 .ImageColor{
