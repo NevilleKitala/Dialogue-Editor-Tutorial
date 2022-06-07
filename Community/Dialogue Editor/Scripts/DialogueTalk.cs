@@ -369,7 +369,6 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Finish()
         {
-            DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters + 2;
             UnityAction unityAction = null;
             unityAction += GetFinish;
 
