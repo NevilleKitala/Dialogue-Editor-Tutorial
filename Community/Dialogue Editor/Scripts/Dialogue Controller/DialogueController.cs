@@ -16,7 +16,6 @@ namespace DialogueEditor.Dialogue.Scripts
         public int totalVisibleCharacters;
         public int counter = 0;
 
-        public UnityEvent talkInteraction;
         public static DialogueController Instance{
             get {
                 if(_instance is null)
@@ -96,8 +95,9 @@ namespace DialogueEditor.Dialogue.Scripts
         
         public void SetContinue(UnityAction unityAction)
         {
-            talkInteraction.AddListener(unityAction);
-            unityAction = null;
+            DialogueAssets.Instance.buttonContinue.onClick = new Button.ButtonClickedEvent();
+            DialogueAssets.Instance.buttonContinue.onClick.AddListener(unityAction);
+            DialogueAssets.Instance.buttonContinue.gameObject.SetActive(true);
         }
     }
 
