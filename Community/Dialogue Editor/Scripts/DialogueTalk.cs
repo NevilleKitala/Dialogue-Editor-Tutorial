@@ -11,7 +11,7 @@ namespace DialogueEditor.Dialogue.Scripts
         private AudioSource audioSource;
 
         private DialogueData currentDialogueNodeData;
-        private DialogueData lastDialogueNodeData;
+        private BaseData lastDialogueNodeData;
 
         private DialogueMathCalculatorCondition DMCCondition = new DialogueMathCalculatorCondition();
         private DialogueMathCalculatorModifier DMCModifier = new DialogueMathCalculatorModifier();
@@ -41,6 +41,9 @@ namespace DialogueEditor.Dialogue.Scripts
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
                     DialogueController.Instance.counter ++;
+                    if(DialogueController.Instance.text.text[DialogueController.Instance.counter] == '.')
+                        DialogueController.Instance.timer = - 2 * DialogueController.Instance.timerThreshold;
+                    else
                     DialogueController.Instance.timer = 0;
                 }
                 
@@ -58,10 +61,19 @@ namespace DialogueEditor.Dialogue.Scripts
 
         public void StartDialogue()
         {
-            if(dialogueContainerSO.StartData != null)
+            if (dialogueContainerSO.StartData != null && lastDialogueNodeData == null)
                 CheckNodeType(GetNextNode(dialogueContainerSO.StartData));
+            else if (lastDialogueNodeData != null)
+            {
+                CheckNodeType(GetNextNode(dialogueContainerSO.StartData));
+            }
             else
                 Debug.Log($"<color=red>Error: </color>Your Dialogue Object Must have a start Node.");
+        }
+
+        public void ContinueDialogue()
+        {
+
         }
 
         public void StopDialogue()
@@ -78,6 +90,7 @@ namespace DialogueEditor.Dialogue.Scripts
             {
                 case StartData nodeData:
                     RunNode(nodeData);
+                    lastDialogueNodeData = nodeData;
                     break;
                 case DialogueData nodeData:
                     RunNode(nodeData);
@@ -349,7 +362,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
-            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.text.textInfo.characterCount;
+            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters + 1;
             Next();
         }
 
