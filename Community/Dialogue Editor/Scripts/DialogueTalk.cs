@@ -332,11 +332,11 @@ namespace DialogueEditor.Dialogue.Scripts
                 DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
 
             PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
-             DialogueController.Instance.SetContinue(null);
-            Finish();
+            DialogueController.Instance.SetContinue(null);
             DialogueController.Instance.ShowDialogueUI(true);
             DialogueController.Instance.SetDynamicText(parsedParagraph);
-
+            
+            Finish();
         }
 
         private void PlayAudio(AudioClip audioClip)
@@ -348,9 +348,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Next()
         {
-            UnityAction unityAction = null;
-            unityAction += GetNext;
-            DialogueController.Instance.SetContinue(unityAction);
+            DialogueController.Instance.SetContinue(GetNext);
         }
 
         void GetNext()
@@ -369,10 +367,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Finish()
         {
-            UnityAction unityAction = null;
-            unityAction += GetFinish;
-
-            DialogueController.Instance.SetContinue(unityAction);
+            DialogueController.Instance.SetContinue(GetFinish);
         }
     }
 }
