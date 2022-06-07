@@ -362,12 +362,13 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
-            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters + 1;
+            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.text.textInfo.characterCount;
             Next();
         }
 
         private void Finish()
-        {  
+        {
+            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters + 2;
             UnityAction unityAction = null;
             unityAction += () => GetFinish();
 
