@@ -361,6 +361,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
+            Debug.Log("Calling Get Finish Now");
             DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters;
         }
 
