@@ -96,7 +96,7 @@ namespace DialogueEditor.Dialogue.Scripts
         
         public void SetContinue(UnityAction unityAction)
         {
-            talkInteraction.AddListener(unityAction.Invoke);
+            talkInteraction.AddListener(unityAction);
             unityAction = null;
         }
     }
