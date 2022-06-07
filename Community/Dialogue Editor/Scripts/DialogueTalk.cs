@@ -41,6 +41,8 @@ namespace DialogueEditor.Dialogue.Scripts
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
 
+                    DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
+
                     if (DialogueController.Instance.text?.text[DialogueController.Instance.counter] == '.')
                         DialogueController.Instance.timer = -2 * DialogueController.Instance.timerThreshold;
                     else
@@ -49,7 +51,6 @@ namespace DialogueEditor.Dialogue.Scripts
                     DialogueController.Instance.counter++;
                 }
                 
-                DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
                 DialogueController.Instance.timer += Time.deltaTime;
             }
 
@@ -331,11 +332,11 @@ namespace DialogueEditor.Dialogue.Scripts
             if (currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value)
                 DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
 
-            Finish();
             PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
             DialogueController.Instance.SetContinue(null);
             DialogueController.Instance.ShowDialogueUI(true);
             DialogueController.Instance.SetDynamicText(parsedParagraph);
+            Finish();
         }
 
         private void PlayAudio(AudioClip audioClip)
@@ -360,8 +361,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
-            DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters + 1;
-            Next();
+            DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters;
         }
 
         private void Finish()
