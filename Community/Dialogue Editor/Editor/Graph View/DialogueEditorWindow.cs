@@ -196,6 +196,10 @@ namespace DialogueEditor.Dialogue.Editor
                     {
                         Actor actor = Actor.NewActor(currentDialogueContainer);
                         currentDialogueContainer.variables.Add(actor);
+                        Container_Actor participatingActor = new Container_Actor();
+                        participatingActor.actor = actor;
+                        currentDialogueContainer.StartData.ParticipatingActors.Add(participatingActor);
+                        Load();
                     }
                     )
                 );

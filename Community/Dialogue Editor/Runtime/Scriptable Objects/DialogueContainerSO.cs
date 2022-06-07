@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace DialogueEditor.Dialogue
@@ -37,6 +38,22 @@ namespace DialogueEditor.Dialogue
                 tmp.AddRange(ChoiceConnectorData);
 
                 return tmp;
+            }
+        }
+
+        [SerializeField, HideInInspector] private bool _hasBeenInitialised = false;
+
+        [Conditional("UNITY_EDITOR")]
+        private void OnValidate()
+        {
+            if (!_hasBeenInitialised)
+            {
+                // do your initialisation :)
+                _hasBeenInitialised = true;
+                if(StartData.ParticipatingActors.Count == 0)
+                {
+
+                }
             }
         }
 

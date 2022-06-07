@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
 
 namespace DialogueEditor.Dialogue.Scripts
 {
@@ -24,9 +22,8 @@ namespace DialogueEditor.Dialogue.Scripts
             }
         }
 
-        private void FixedUpdate()
+        public void GetLocale(string locale)
         {
-            string locale = LocalizationSettings.Instance.GetSelectedLocale().LocaleName;
             switch (locale)
             {
                 case "English":
@@ -47,4 +44,6 @@ namespace DialogueEditor.Dialogue.Scripts
             }
         }
     }
+
+
 }

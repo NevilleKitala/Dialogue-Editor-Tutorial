@@ -8,11 +8,21 @@
 
 .BoxRow{
 	align-self: flex-end;
-	Padding: 1px;
+	padding: 0px;
 	margin: 1px;
 }
 
 .BtnBox{
 	padding: 0px;
 	margin: 0px;
+}
+
+.EventBox{
+	align-content: center;
+}
+
+.EventObject{
+	min-width: 260px;
+	max-height: 26px;
+
 }
