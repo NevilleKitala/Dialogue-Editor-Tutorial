@@ -348,7 +348,7 @@ namespace DialogueEditor.Dialogue.Scripts
         private void Next()
         {
             UnityAction unityAction = null;
-            unityAction += () => GetNext();
+            unityAction += GetNext;
             DialogueController.Instance.SetContinue(unityAction);
         }
 
@@ -370,7 +370,7 @@ namespace DialogueEditor.Dialogue.Scripts
         {
             DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters + 2;
             UnityAction unityAction = null;
-            unityAction += () => GetFinish();
+            unityAction += GetFinish;
 
             DialogueController.Instance.SetContinue(unityAction);
         }
