@@ -96,7 +96,8 @@ namespace DialogueEditor.Dialogue.Scripts
         public void SetContinue(UnityEvent unityevent)
         {
             DialogueAssets.Instance.buttonContinue.onClick.RemoveAllListeners();
-            DialogueAssets.Instance.buttonContinue.onClick.AddListener(unityevent.Invoke);
+            if(unityevent != null)
+                DialogueAssets.Instance.buttonContinue.onClick.AddListener(unityevent.Invoke);
             DialogueAssets.Instance.buttonContinue.gameObject.SetActive(true);
         }
     }
