@@ -348,9 +348,9 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Next()
         {
-            UnityEvent actionEvent = new UnityEvent();
-            actionEvent.AddListener(GetNext);
-            DialogueController.Instance.SetContinue(actionEvent);
+            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
+            DialogueAssets.Instance.continueEvent.AddListener(GetNext);
+            //DialogueController.Instance.SetContinue(actionEvent);
         }
 
         void GetNext()
@@ -369,9 +369,9 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Finish()
         {
-            UnityEvent actionEvent = new UnityEvent();
-            actionEvent.AddListener(GetFinish);
-            DialogueController.Instance.SetContinue(actionEvent);
+
+            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
+            DialogueAssets.Instance.continueEvent.AddListener(GetFinish);
         }
     }
 }
