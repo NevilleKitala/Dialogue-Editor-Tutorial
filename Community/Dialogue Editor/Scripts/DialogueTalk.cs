@@ -42,12 +42,7 @@ namespace DialogueEditor.Dialogue.Scripts
                 {
 
                     DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
-
-                    if (DialogueController.Instance.text?.text[DialogueController.Instance.counter] == '.')
-                        DialogueController.Instance.timer = -2 * DialogueController.Instance.timerThreshold;
-                    else
                     DialogueController.Instance.timer = 0;
-
                     DialogueController.Instance.counter++;
                 }
                 
