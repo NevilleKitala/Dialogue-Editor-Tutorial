@@ -36,26 +36,27 @@ namespace DialogueEditor.Dialogue.Scripts
         }
 
         private void LateUpdate() {
-            if(DialogueController.Instance.text.maxVisibleCharacters < DialogueController.Instance.totalVisibleCharacters){
-
+            if(DialogueController.Instance.text.maxVisibleCharacters < DialogueController.Instance.totalVisibleCharacters)
+            {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
-                    DialogueController.Instance.counter ++;
-                    if(DialogueController.Instance.text.text[DialogueController.Instance.counter] == '.')
-                        DialogueController.Instance.timer = - 2 * DialogueController.Instance.timerThreshold;
+
+                    if (DialogueController.Instance.text.text[DialogueController.Instance.counter] == '.')
+                        DialogueController.Instance.timer = -2 * DialogueController.Instance.timerThreshold;
                     else
                     DialogueController.Instance.timer = 0;
+
+                    DialogueController.Instance.counter++;
                 }
                 
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
-
                 DialogueController.Instance.timer += Time.deltaTime;
+            }
 
-                
-                if(DialogueController.Instance.counter > DialogueController.Instance.totalVisibleCharacters + 1)
-                {
-                    Next();
-                }
+            else
+            {
+                DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters;
+                Next();
             }
         }
 
@@ -362,7 +363,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
-            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.text.textInfo.characterCount;
+            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters;
             Next();
         }
 
