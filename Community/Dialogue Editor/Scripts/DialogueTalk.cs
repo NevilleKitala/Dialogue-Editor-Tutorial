@@ -36,7 +36,7 @@ namespace DialogueEditor.Dialogue.Scripts
         }
 
         private void LateUpdate() {
-            if(DialogueController.Instance.text.maxVisibleCharacters < DialogueController.Instance.totalVisibleCharacters)
+            if(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters)
             {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
