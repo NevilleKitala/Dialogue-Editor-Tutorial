@@ -41,7 +41,7 @@ namespace DialogueEditor.Dialogue.Scripts
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
 
-                    if (DialogueController.Instance.text.text[DialogueController.Instance.counter] == '.')
+                    if (DialogueController.Instance.text?.text[DialogueController.Instance.counter] == '.')
                         DialogueController.Instance.timer = -2 * DialogueController.Instance.timerThreshold;
                     else
                     DialogueController.Instance.timer = 0;
@@ -363,7 +363,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
-            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters;
+            DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters + 1;
             Next();
         }
 
