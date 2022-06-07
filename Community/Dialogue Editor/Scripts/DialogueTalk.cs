@@ -21,6 +21,8 @@ namespace DialogueEditor.Dialogue.Scripts
         private Action nextNodeCheck;
         private bool runCheck;
 
+        private bool teletype = false;
+
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
@@ -36,7 +38,7 @@ namespace DialogueEditor.Dialogue.Scripts
         }
 
         private void FixedUpdate() {
-            if(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters)
+            if(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters && teletype)
             {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
@@ -51,6 +53,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
             else
             {
+                teletype = false;
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters;
                 Next();
             }
@@ -364,9 +367,10 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Finish()
         {
-
             DialogueAssets.Instance.continueEvent.RemoveAllListeners();
             DialogueAssets.Instance.continueEvent.AddListener(GetFinish);
+
+            teletype = true;
         }
     }
 }
