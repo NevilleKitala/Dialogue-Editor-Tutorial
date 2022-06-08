@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,7 +22,7 @@ namespace DialogueEditor.Dialogue.Scripts
         private Action nextNodeCheck;
         private bool runCheck;
 
-        private bool teletype = false;
+        private IEnumerator teletype;
 
         private void Awake()
         {
@@ -37,8 +38,8 @@ namespace DialogueEditor.Dialogue.Scripts
             }
         }
 
-        private void FixedUpdate() {
-            if(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters && teletype)
+        private IEnumerator Teletype() {
+            while(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters && DialogueController.Instance.counter !=)
             {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
@@ -49,14 +50,10 @@ namespace DialogueEditor.Dialogue.Scripts
                 }
                 
                 DialogueController.Instance.timer += Time.deltaTime;
-            }
 
-            else
-            {
-                teletype = false;
-                DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters;
-                Next();
+                yield return new WaitForSeconds(DialogueController.Instance.timerThreshold);
             }
+            Next();
         }
 
         public void StartDialogue()
@@ -79,10 +76,11 @@ namespace DialogueEditor.Dialogue.Scripts
         public void StopDialogue()
         {
             DialogueController.Instance.ShowDialogueUI(false);
-            DialogueController.Instance.SetContinue(null);
-            DialogueController.Instance.text.text = null;
+            DialogueController.Instance.text.text = string.Empty;
             DialogueController.Instance.text.textInfo.Clear();
-        }
+            if(teletype != null)
+                StopCoroutine(teletype);
+    }
 
         private void CheckNodeType(BaseData _baseNodeData)
         {
@@ -332,10 +330,10 @@ namespace DialogueEditor.Dialogue.Scripts
 
             PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
             Finish();
-
-            teletype = true;
             DialogueController.Instance.ShowDialogueUI(true);
             DialogueController.Instance.SetDynamicText(parsedParagraph);
+            teletype = Teletype();
+            StartCoroutine(teletype);
         }
 
         private void PlayAudio(AudioClip audioClip)
@@ -347,6 +345,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Next()
         {
+            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
             DialogueAssets.Instance.continueEvent.AddListener(GetNext);
             //DialogueController.Instance.SetContinue(actionEvent);
         }
@@ -361,13 +360,15 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
-
-            teletype = false;
             Debug.Log("Calling Get Finish Now");
+            StopCoroutine(teletype);
+            DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters + 1;
         }
 
         private void Finish()
         {
+
+            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
             DialogueAssets.Instance.continueEvent.AddListener(GetFinish);
         }
     }
