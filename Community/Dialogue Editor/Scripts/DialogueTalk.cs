@@ -347,7 +347,6 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private void Next()
         {
-            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
             DialogueAssets.Instance.continueEvent.AddListener(GetNext);
             //DialogueController.Instance.SetContinue(actionEvent);
         }
@@ -365,12 +364,10 @@ namespace DialogueEditor.Dialogue.Scripts
 
             teletype = false;
             Debug.Log("Calling Get Finish Now");
-            DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters;
         }
 
         private void Finish()
         {
-            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
             DialogueAssets.Instance.continueEvent.AddListener(GetFinish);
         }
     }
