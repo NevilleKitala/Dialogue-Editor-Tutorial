@@ -39,7 +39,8 @@ namespace DialogueEditor.Dialogue.Scripts
         }
 
         private IEnumerator Teletype() {
-            while(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters)
+            Finish();
+            while (DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters)
             {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
@@ -329,7 +330,6 @@ namespace DialogueEditor.Dialogue.Scripts
                 DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
 
             PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
-            Finish();
             DialogueController.Instance.ShowDialogueUI(true);
             DialogueController.Instance.SetDynamicText(parsedParagraph);
             teletype = Teletype();
@@ -347,7 +347,6 @@ namespace DialogueEditor.Dialogue.Scripts
         {
             DialogueAssets.Instance.continueEvent.RemoveAllListeners();
             DialogueAssets.Instance.continueEvent.AddListener(GetNext);
-            //DialogueController.Instance.SetContinue(actionEvent);
         }
 
         void GetNext()
@@ -362,7 +361,8 @@ namespace DialogueEditor.Dialogue.Scripts
         {
             Debug.Log("Calling Get Finish Now");
             StopCoroutine(teletype);
-            DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters + 1;
+            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters + 1;
+            Next();
         }
 
         private void Finish()
