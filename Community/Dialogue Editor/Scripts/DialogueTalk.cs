@@ -20,7 +20,9 @@ namespace DialogueEditor.Dialogue.Scripts
         private List<DialogueData_Sentence> paragraph;
 
         private Action nextNodeCheck;
+        
         private bool runCheck;
+        public bool teletypeCheck = false;
 
         private IEnumerator teletype;
 
@@ -39,7 +41,7 @@ namespace DialogueEditor.Dialogue.Scripts
         }
 
         private IEnumerator Teletype() {
-            Finish();
+            teletypeCheck = true;
             while (DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters)
             {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
@@ -54,7 +56,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
                 yield return new WaitForSeconds(DialogueController.Instance.timerThreshold);
             }
-            Next();
+            teletypeCheck = false;
         }
 
         public void StartDialogue()
@@ -343,13 +345,7 @@ namespace DialogueEditor.Dialogue.Scripts
             audioSource.Play();
         }
 
-        private void Next()
-        {
-            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
-            DialogueAssets.Instance.continueEvent.AddListener(GetNext);
-        }
-
-        void GetNext()
+        public void GetNext()
         {
             DialogueController.Instance.counter = 0;
             DialogueController.Instance.timer = 0;
@@ -357,19 +353,11 @@ namespace DialogueEditor.Dialogue.Scripts
             CheckNodeType(GetNextNode(currentDialogueNodeData));
         }
 
-        void GetFinish()
+        public void GetFinish()
         {
             Debug.Log("Calling Get Finish Now");
             StopCoroutine(teletype);
             DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters + 1;
-            Next();
-        }
-
-        private void Finish()
-        {
-
-            DialogueAssets.Instance.continueEvent.RemoveAllListeners();
-            DialogueAssets.Instance.continueEvent.AddListener(GetFinish);
         }
     }
 }
