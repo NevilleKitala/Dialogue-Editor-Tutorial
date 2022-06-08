@@ -39,7 +39,7 @@ namespace DialogueEditor.Dialogue.Scripts
         }
 
         private IEnumerator Teletype() {
-            while(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters && DialogueController.Instance.counter !=)
+            while(DialogueController.Instance.counter < DialogueController.Instance.totalVisibleCharacters)
             {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
