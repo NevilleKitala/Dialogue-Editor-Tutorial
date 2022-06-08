@@ -331,10 +331,9 @@ namespace DialogueEditor.Dialogue.Scripts
                 DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
 
             PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
-            DialogueController.Instance.SetContinue(null);
+            Finish();
             DialogueController.Instance.ShowDialogueUI(true);
             DialogueController.Instance.SetDynamicText(parsedParagraph);
-            Finish();
         }
 
         private void PlayAudio(AudioClip audioClip)
