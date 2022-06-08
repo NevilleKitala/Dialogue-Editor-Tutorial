@@ -357,6 +357,7 @@ namespace DialogueEditor.Dialogue.Scripts
         {
             Debug.Log("Calling Get Finish Now");
             StopCoroutine(teletype);
+            teletypeCheck = false;
             DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters + 1;
         }
     }
