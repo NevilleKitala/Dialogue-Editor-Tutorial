@@ -42,7 +42,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         private IEnumerator Teletype() {
             teletypeCheck = true;
-            while (DialogueController.Instance.counter =< DialogueController.Instance.totalVisibleCharacters)
+            while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
             {
                 if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
                 {
