@@ -332,6 +332,8 @@ namespace DialogueEditor.Dialogue.Scripts
 
             PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
             Finish();
+
+            teletype = true;
             DialogueController.Instance.ShowDialogueUI(true);
             DialogueController.Instance.SetDynamicText(parsedParagraph);
         }
@@ -360,6 +362,8 @@ namespace DialogueEditor.Dialogue.Scripts
 
         void GetFinish()
         {
+
+            teletype = false;
             Debug.Log("Calling Get Finish Now");
             DialogueController.Instance.counter = DialogueController.Instance.totalVisibleCharacters;
         }
@@ -368,8 +372,6 @@ namespace DialogueEditor.Dialogue.Scripts
         {
             DialogueAssets.Instance.continueEvent.RemoveAllListeners();
             DialogueAssets.Instance.continueEvent.AddListener(GetFinish);
-
-            teletype = true;
         }
     }
 }
