@@ -80,7 +80,6 @@ namespace DialogueEditor.Dialogue.Scripts
         {
             DialogueController.Instance.ShowDialogueUI(false);
             DialogueController.Instance.text.text = string.Empty;
-            DialogueController.Instance.text.textInfo.Clear();
             if(teletype != null)
                 StopCoroutine(teletype);
     }
