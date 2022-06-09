@@ -380,7 +380,7 @@ namespace DialogueEditor.Dialogue.Scripts
                 if (!teletypeCheck)
                 {
                     DialogueController.Instance.SetFullText(parsedParagraph);
-                    StopCoroutine(teletype);
+                    yield break;
                 }
 
                 DialogueController.Instance.counter++;
