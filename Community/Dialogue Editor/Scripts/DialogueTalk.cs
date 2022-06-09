@@ -394,8 +394,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
                 int lastLine = DialogueController.Instance.text.textInfo.lineCount;
 
-                Debug.Log(lastLine);
-                Debug.Log(parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal]);
+                Debug.Log(parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal - 1]);
 
 
                 if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
