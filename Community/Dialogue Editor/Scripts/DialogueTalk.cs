@@ -82,7 +82,7 @@ namespace DialogueEditor.Dialogue.Scripts
             DialogueController.Instance.text.text = string.Empty;
             if(teletype != null)
                 StopCoroutine(teletype);
-    }
+        }
 
         private void CheckNodeType(BaseData _baseNodeData)
         {
@@ -387,6 +387,9 @@ namespace DialogueEditor.Dialogue.Scripts
 
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
                 int lastLine = DialogueController.Instance.text.textInfo.lineCount;
+
+                Debug.Log(DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex]);
+
                 if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == ',' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '?' ||
