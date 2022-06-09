@@ -387,17 +387,17 @@ namespace DialogueEditor.Dialogue.Scripts
 
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
 
-                int lastLine = DialogueController.Instance.text.textInfo.lineCount -1;
+                int lastLine = DialogueController.Instance.text.textInfo.lineCount;
 
                 Debug.Log(lastLine);
                 Debug.Log(DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex]);
 
-                if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
+                if (DialogueController.Instance.text.textInfo.characterInfo[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex].character == '.' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == ',' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '?' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '!')
                 {
-                    yield return new WaitForSeconds(parsedParagraph[sentenceCounter].pauseAtPunctuation);
+                    yield return new WaitForSeconds(5f);
                 }
                 else
                 {
