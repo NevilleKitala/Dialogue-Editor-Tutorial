@@ -346,7 +346,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
             DialogueController.Instance.counter = 0;
             DialogueController.Instance.totalVisibleCharacters = 0;
-            DialogueController.Instance.text = new TMPro.TextMeshProUGUI();
+            DialogueController.Instance.text.text = "";
 
             foreach (DialogueData_Sentence sentence in paragraph)
             {
@@ -372,11 +372,18 @@ namespace DialogueEditor.Dialogue.Scripts
             StartCoroutine(teletype);
         }
 
+        private bool Finish = false;
+
         private IEnumerator TeletypeRework(int sentenceCounter, List<Sentence> parsedParagraph)
         {
             teletypeCheck = true;
             while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
             {
+                if (!teletypeCheck)
+                {
+                    DialogueController.Instance.SetFullText(parsedParagraph);
+                    StopCoroutine(teletype);
+                }
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
                 if (DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == '.' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == ',' ||
@@ -419,10 +426,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
         public void GetFinish()
         {
-            Debug.Log("Calling Get Finish Now");
-            StopCoroutine(teletype);
             teletypeCheck = false;
-            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.totalVisibleCharacters + 1;
         }
     }
 }
