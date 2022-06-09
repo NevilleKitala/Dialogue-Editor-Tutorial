@@ -32,14 +32,8 @@ public class DialogueAssets : MonoBehaviour
     [SerializeField] public Image leftImage;
     [SerializeField] public Image rightImage;
 
-    [Header("Continue")]
-    [SerializeField] public Button buttonContinue;
-
     private Button activeChoice;
     public UnityEvent continueEvent;
-    public void Continue(){
-        buttonContinue.onClick.Invoke();
-    }
 
     public void choiceSelect(){
         activeChoice.onClick.Invoke();

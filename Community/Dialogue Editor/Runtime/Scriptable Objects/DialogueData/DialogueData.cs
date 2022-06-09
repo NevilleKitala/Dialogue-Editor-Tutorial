@@ -28,6 +28,15 @@ namespace DialogueEditor.Dialogue
 #endif
         public Container_String GuidID = new Container_String();
         public List<LanguageGeneric<string>> Text = new List<LanguageGeneric<string>>();
+        public Container_Float pauseAtPunctuation = new Container_Float();
+    }
+
+    [System.Serializable]
+    public class SentencePause
+    {
+#if UNITY_EDITOR
+#endif
+
     }
 
     [System.Serializable]

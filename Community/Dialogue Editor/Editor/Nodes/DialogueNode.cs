@@ -146,6 +146,8 @@ namespace DialogueEditor.Dialogue.Editor
 
             AddVolumeField(newDialogueData_Sentence, boxContainer);
 
+            AddPauseFields(newDialogueData_Sentence, boxContainer);
+
             // Reload the current selected language
             ReloadLanguage();
 
@@ -251,6 +253,14 @@ namespace DialogueEditor.Dialogue.Editor
         {
             EnumField enumField = GetNewEnumField_VolumeType(container.volumeType, "Volume Level", "Volume");
             boxContainer.Add(enumField);
+        }
+        public void AddPauseFields(DialogueData_Sentence container, Box boxContainer)
+        {
+            Label pauseAfterFullStoplabel = GetNewLabel("Punctuation Pause", "", "");
+            FloatField pauseAtFullStop = GetNewFloatField(container.pauseAtPunctuation, "", "");
+
+            boxContainer.Add(pauseAfterFullStoplabel);
+            boxContainer.Add(pauseAtFullStop);
         }
 
         private void AddAudioClips(DialogueData_Text container, Box boxContainer)

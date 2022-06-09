@@ -10,8 +10,7 @@ namespace DialogueEditor.Dialogue.Scripts
     public class DialogueController: MonoBehaviour
     {
         public static DialogueController _instance;
-        public float timer = 0;
-        public float timerThreshold = 0.05f;
+        public float teletypeInterval = 0.05f;
         public TextMeshProUGUI text;
         public int totalVisibleCharacters;
         public int counter = 0;
@@ -38,12 +37,9 @@ namespace DialogueEditor.Dialogue.Scripts
             DialogueAssets.Instance.textBox.GetComponent<TextMeshProUGUI>().text += text;
         }
 
-        public void SetDynamicText(List <Sentence> paragraph)
+        public void SetFullText(List <Sentence> paragraph)
         {
             text = DialogueAssets.Instance.textBox.GetComponent<TextMeshProUGUI>();
-
-            
-            totalVisibleCharacters = 0;
             text.text = "";
             for (int i = 0; i < paragraph.Count; i++)
             {
@@ -69,8 +65,34 @@ namespace DialogueEditor.Dialogue.Scripts
                         break;
                 }
             }
-            counter = 0;
-            text.maxVisibleCharacters = 0;
+        }
+
+        public float SetDynamicSentence(Sentence sentence)
+        {
+            totalVisibleCharacters += sentence.sentence.Length;
+            switch (sentence.volume)
+            {
+                case VolumeType.Neutral:
+                    SetText(sentence.sentence);
+                    break;
+                case VolumeType.Shout:
+                    text.text += $"<color=#b63c35>{sentence.sentence}</color>";
+                    break;
+                case VolumeType.Drunk:
+                    text.text += $"<color=#e8cb82>{sentence.sentence}</color>";
+                    break;
+                case VolumeType.Whisper:
+                    text.text += $"<color=#24aed6>{sentence.sentence}</color>";
+                    break;
+                case VolumeType.Tired:
+                    text.text += $"<color=#cdd2da>{sentence.sentence}</color>";
+                    break;
+                case VolumeType.Special:
+                    text.text += $"<color=#ffbc4e>{sentence.sentence}</color>";
+                    break;
+            }
+
+            return sentence.pauseAtPunctuation;
         }
 
 
@@ -91,20 +113,12 @@ namespace DialogueEditor.Dialogue.Scripts
             if (rightImage != null)
                 DialogueAssets.Instance.rightImage.sprite = rightImage;
         }
-
-        
-        public void SetContinue(UnityEvent unityevent)
-        {
-            DialogueAssets.Instance.buttonContinue.onClick.RemoveAllListeners();
-            if(unityevent != null)
-                DialogueAssets.Instance.buttonContinue.onClick.AddListener(unityevent.Invoke);
-            DialogueAssets.Instance.buttonContinue.gameObject.SetActive(true);
-        }
     }
 
     public class Sentence
     {
         public string sentence { get; set; }
+        public float pauseAtPunctuation { get; set; }
         public VolumeType volume { get; set; }
         public Sentence()
         {

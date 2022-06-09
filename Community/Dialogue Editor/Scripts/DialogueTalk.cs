@@ -40,24 +40,24 @@ namespace DialogueEditor.Dialogue.Scripts
             }
         }
 
-        private IEnumerator Teletype() {
-            teletypeCheck = true;
-            while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
-            {
-                if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
-                {
+        //private IEnumerator Teletype() {
+        //    teletypeCheck = true;
+        //    while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
+        //    {
+        //        if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
+        //        {
 
-                    DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
-                    DialogueController.Instance.timer = 0;
-                    DialogueController.Instance.counter++;
-                }
+        //            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
+        //            DialogueController.Instance.timer = 0;
+        //            DialogueController.Instance.counter++;
+        //        }
                 
-                DialogueController.Instance.timer += Time.deltaTime;
+        //        DialogueController.Instance.timer += Time.deltaTime;
 
-                yield return new WaitForSeconds(DialogueController.Instance.timerThreshold);
-            }
-            teletypeCheck = false;
-        }
+        //        yield return new WaitForSeconds(DialogueController.Instance.timerThreshold);
+        //    }
+        //    teletypeCheck = false;
+        //}
 
         public void StartDialogue()
         {
@@ -314,15 +314,46 @@ namespace DialogueEditor.Dialogue.Scripts
             dialogueButtonContainers.Add(dialogueButtonContainer);
         }
 
+        //private void DialogueToDo()
+        //{
+        //    List<Sentence> parsedParagraph = new List<Sentence>();
+        //    foreach (DialogueData_Sentence sentence in paragraph)
+        //    {
+        //        Sentence currentSentence = new Sentence();
+        //        currentSentence.sentence = " " + sentence.Text.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
+        //        currentSentence.volume = sentence.volumeType.Value;
+        //        currentSentence.pause.pauseAfterComma = sentence.pauseAfterComma.Value;
+        //        currentSentence.pause.pauseAtFullStop = sentence.pauseAtFullStop.Value;
+        //        parsedParagraph.Add(currentSentence);
+        //    }
+
+        //    if (currentDialogueNodeData.DialogueData_Text.Sprite_Left.Value)
+        //        DialogueController.Instance.SetLeftImage(currentDialogueNodeData.DialogueData_Text.Sprite_Left.Value);
+        //    if (currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value)
+        //        DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
+
+        //    PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+        //    DialogueController.Instance.ShowDialogueUI(true);
+        //    DialogueController.Instance.SetDynamicText(parsedParagraph);
+        //    teletype = Teletype();
+        //    StartCoroutine(teletype);
+        //}
+
         private void DialogueToDo()
         {
             List<Sentence> parsedParagraph = new List<Sentence>();
+            int sentenceCounter = 0;
+
+            DialogueController.Instance.counter = 0;
+            DialogueController.Instance.totalVisibleCharacters = 0;
+            DialogueController.Instance.text = new TMPro.TextMeshProUGUI();
+
             foreach (DialogueData_Sentence sentence in paragraph)
             {
                 Sentence currentSentence = new Sentence();
                 currentSentence.sentence = " " + sentence.Text.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
                 currentSentence.volume = sentence.volumeType.Value;
-
+                currentSentence.pauseAtPunctuation = sentence.pauseAtPunctuation.Value;
                 parsedParagraph.Add(currentSentence);
             }
 
@@ -332,11 +363,45 @@ namespace DialogueEditor.Dialogue.Scripts
                 DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
 
             PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+
             DialogueController.Instance.ShowDialogueUI(true);
-            DialogueController.Instance.SetDynamicText(parsedParagraph);
-            teletype = Teletype();
+            DialogueController.Instance.SetDynamicSentence(parsedParagraph[0]);
+            DialogueController.Instance.text.maxVisibleCharacters = 0;
+
+            teletype = TeletypeRework(sentenceCounter, parsedParagraph);
             StartCoroutine(teletype);
         }
+
+        private IEnumerator TeletypeRework(int sentenceCounter, List<Sentence> parsedParagraph)
+        {
+            teletypeCheck = true;
+            while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
+            {
+                DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
+                if (DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == '.' ||
+                    DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == ',' ||
+                    DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == '?' ||
+                    DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == '!')
+                {
+                    yield return new WaitForSeconds(parsedParagraph[sentenceCounter].pauseAtPunctuation);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(DialogueController.Instance.teletypeInterval);
+                }
+            }
+
+            sentenceCounter++;
+            if(sentenceCounter >= parsedParagraph.Count)
+                teletypeCheck = false;
+            else
+            {
+                DialogueController.Instance.SetDynamicSentence(parsedParagraph[sentenceCounter]);
+                teletype = TeletypeRework(sentenceCounter, parsedParagraph);
+                StartCoroutine(teletype);
+            }
+        }
+
 
         private void PlayAudio(AudioClip audioClip)
         {
@@ -348,7 +413,6 @@ namespace DialogueEditor.Dialogue.Scripts
         public void GetNext()
         {
             DialogueController.Instance.counter = 0;
-            DialogueController.Instance.timer = 0;
             DialogueController.Instance.totalVisibleCharacters = 0;
             CheckNodeType(GetNextNode(currentDialogueNodeData));
         }
