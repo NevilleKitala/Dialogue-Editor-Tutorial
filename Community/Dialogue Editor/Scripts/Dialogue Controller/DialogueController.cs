@@ -40,6 +40,7 @@ namespace DialogueEditor.Dialogue.Scripts
         public void SetFullText(List <Sentence> paragraph)
         {
             text = DialogueAssets.Instance.textBox.GetComponent<TextMeshProUGUI>();
+            text.textInfo.Clear();
             text.text = "";
             for (int i = 0; i < paragraph.Count; i++)
             {

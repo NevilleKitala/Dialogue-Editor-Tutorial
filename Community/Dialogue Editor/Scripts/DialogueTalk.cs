@@ -372,8 +372,6 @@ namespace DialogueEditor.Dialogue.Scripts
             StartCoroutine(teletype);
         }
 
-        private bool Finish = false;
-
         private IEnumerator TeletypeRework(int sentenceCounter, List<Sentence> parsedParagraph)
         {
             teletypeCheck = true;
@@ -403,9 +401,11 @@ namespace DialogueEditor.Dialogue.Scripts
                 teletypeCheck = false;
             else
             {
+                IEnumerator temp = teletype;
                 DialogueController.Instance.SetDynamicSentence(parsedParagraph[sentenceCounter]);
                 teletype = TeletypeRework(sentenceCounter, parsedParagraph);
                 StartCoroutine(teletype);
+                StopCoroutine(temp);
             }
         }
 
