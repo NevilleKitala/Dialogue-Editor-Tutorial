@@ -379,6 +379,7 @@ namespace DialogueEditor.Dialogue.Scripts
             {
                 if (!teletypeCheck)
                 {
+                    DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.text.textInfo.characterCount;
                     DialogueController.Instance.SetFullText(parsedParagraph);
                     yield break;
                 }
