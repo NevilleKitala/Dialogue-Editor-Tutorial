@@ -388,9 +388,9 @@ namespace DialogueEditor.Dialogue.Scripts
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
                 int lastLine = DialogueController.Instance.text.textInfo.lineCount;
 
-                Debug.Log(DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex]);
+                Debug.Log(DialogueController.Instance.text.textInfo.characterInfo[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex].character);
 
-                if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
+                if (DialogueController.Instance.text.textInfo.characterInfo[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex].character.Equals('.') ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == ',' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '?' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '!')
