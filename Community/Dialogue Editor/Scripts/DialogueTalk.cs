@@ -382,6 +382,9 @@ namespace DialogueEditor.Dialogue.Scripts
                     DialogueController.Instance.SetFullText(parsedParagraph);
                     StopCoroutine(teletype);
                 }
+
+                DialogueController.Instance.counter++;
+
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
                 if (DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == '.' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.counter] == ',' ||
