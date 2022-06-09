@@ -374,6 +374,11 @@ namespace DialogueEditor.Dialogue.Scripts
         private IEnumerator TeletypeRework(int sentenceCounter, List<Sentence> parsedParagraph)
         {
             teletypeCheck = true;
+            int lastTotal = 0;
+            for (int i = 0; i < sentenceCounter; i++)
+            {
+                lastTotal += parsedParagraph[i].sentence.Length;
+            }
             while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
             {
                 if (!teletypeCheck)
@@ -387,17 +392,18 @@ namespace DialogueEditor.Dialogue.Scripts
 
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
 
-                int lastLine = DialogueController.Instance.text.maxVisibleLines;
+                int lastLine = DialogueController.Instance.text.textInfo.lineCount;
 
-                Debug.Log(lastLine + "/"+ DialogueController.Instance.text.maxVisibleLines);
-                Debug.Log(DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex]);
+                Debug.Log(lastLine);
+                Debug.Log(parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal]);
 
-                if (DialogueController.Instance.text.textInfo.characterInfo[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex].character == '.' ||
+
+                if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == ',' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '?' ||
                     DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '!')
                 {
-                    yield return new WaitForSeconds(5f);
+                    yield return new WaitForSeconds(parsedParagraph[sentenceCounter].pauseAtPunctuation);
                 }
                 else
                 {
