@@ -386,7 +386,7 @@ namespace DialogueEditor.Dialogue.Scripts
                 DialogueController.Instance.counter++;
 
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
-                int lastLine = DialogueController.Instance.text.textInfo.lineCount -1;
+                int lastLine = DialogueController.Instance.counter > 0? DialogueController.Instance.text.textInfo.lineCount -1 : DialogueController.Instance.counter;
 
                 Debug.Log(DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex]);
 
