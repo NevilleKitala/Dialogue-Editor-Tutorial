@@ -374,7 +374,7 @@ namespace DialogueEditor.Dialogue.Scripts
         private IEnumerator TeletypeRework(int sentenceCounter, List<Sentence> parsedParagraph)
         {
             teletypeCheck = true;
-            int lastTotal = DialogueController.Instance.totalVisibleCharacters - (parsedParagraph[sentenceCounter].sentence.Length - 2);
+            int lastTotal = DialogueController.Instance.totalVisibleCharacters - (parsedParagraph[sentenceCounter].sentence.Length - 1);
             while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
             {
                 if (!teletypeCheck)
@@ -384,26 +384,27 @@ namespace DialogueEditor.Dialogue.Scripts
                     yield break;
                 }
 
-                Debug.Log($"position: {DialogueController.Instance.counter - lastTotal}");
+
+                Debug.Log($"position: {DialogueController.Instance.counter - lastTotal} is {parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal]}");
 
                 DialogueController.Instance.counter++;
 
                 DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
 
-                //if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
-                //    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == ',' ||
-                //    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '?' ||
-                //    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '!')
-                //{
-                //    yield return new WaitForSeconds(parsedParagraph[sentenceCounter].pauseAtPunctuation);
-                //}
-                //else
-                //{
-                //    yield return new WaitForSeconds(DialogueController.Instance.teletypeInterval);
-                //}
+                int lastLine = DialogueController.Instance.text.textInfo.lineCount;
 
 
-                yield return new WaitForSeconds(DialogueController.Instance.teletypeInterval);
+                if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
+                    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == ',' ||
+                    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '?' ||
+                    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '!')
+                {
+                    yield return new WaitForSeconds(parsedParagraph[sentenceCounter].pauseAtPunctuation);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(DialogueController.Instance.teletypeInterval);
+                }
             }
 
             sentenceCounter++;
