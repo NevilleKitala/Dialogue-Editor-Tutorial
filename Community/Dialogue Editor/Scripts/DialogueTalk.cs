@@ -375,7 +375,6 @@ namespace DialogueEditor.Dialogue.Scripts
         {
             teletypeCheck = true;
             int lastTotal = DialogueController.Instance.totalVisibleCharacters - (parsedParagraph[sentenceCounter].sentence.Length - 1);
-            lastTotal = lastTotal < 0 ? 0 : lastTotal;
             while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
             {
                 if (!teletypeCheck)
@@ -385,8 +384,10 @@ namespace DialogueEditor.Dialogue.Scripts
                     yield break;
                 }
 
+                int index = DialogueController.Instance.counter - lastTotal;
+                index = index < 0 ? 0 : index;
 
-                Debug.Log($"position: {DialogueController.Instance.counter - lastTotal} is {parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal]}");
+                Debug.Log($"position: {index} is {parsedParagraph[sentenceCounter].sentence[index]}");
 
                 DialogueController.Instance.counter++;
 
