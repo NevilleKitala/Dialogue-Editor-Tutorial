@@ -396,10 +396,10 @@ namespace DialogueEditor.Dialogue.Scripts
                 int lastLine = DialogueController.Instance.text.textInfo.lineCount;
 
 
-                if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
-                    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == ',' ||
-                    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '?' ||
-                    DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '!')
+                if (parsedParagraph[sentenceCounter].sentence[index] == '.' ||
+                    parsedParagraph[sentenceCounter].sentence[index] == ',' ||
+                    parsedParagraph[sentenceCounter].sentence[index] == '?' ||
+                    parsedParagraph[sentenceCounter].sentence[index] == '!')
                 {
                     yield return new WaitForSeconds(parsedParagraph[sentenceCounter].pauseAtPunctuation);
                 }
