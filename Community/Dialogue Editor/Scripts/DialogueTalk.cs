@@ -384,7 +384,7 @@ namespace DialogueEditor.Dialogue.Scripts
                     yield break;
                 }
 
-                Debug.Log($"position: {DialogueController.Instance.counter - lastTotal} is {parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal]}");
+                Debug.Log($"position: {DialogueController.Instance.counter - lastTotal}");
 
                 DialogueController.Instance.counter++;
 
