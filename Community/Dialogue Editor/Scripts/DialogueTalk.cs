@@ -374,7 +374,7 @@ namespace DialogueEditor.Dialogue.Scripts
         private IEnumerator TeletypeRework(int sentenceCounter, List<Sentence> parsedParagraph)
         {
             teletypeCheck = true;
-            int lastTotal = DialogueController.Instance.totalVisibleCharacters - parsedParagraph[sentenceCounter].sentence.Length;
+            int lastTotal = DialogueController.Instance.totalVisibleCharacters - (parsedParagraph[sentenceCounter].sentence.Length + 2);
             while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
             {
                 if (!teletypeCheck)
@@ -390,7 +390,7 @@ namespace DialogueEditor.Dialogue.Scripts
 
                 int lastLine = DialogueController.Instance.text.textInfo.lineCount;
 
-                Debug.Log(parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal]);
+                Debug.Log($"position: {DialogueController.Instance.counter - lastTotal} is {parsedParagraph[sentenceCounter].sentence[DialogueController.Instance.counter - lastTotal]}");
 
 
                 if (DialogueController.Instance.text.ToString()[DialogueController.Instance.text.textInfo.lineInfo[lastLine].lastVisibleCharacterIndex] == '.' ||
