@@ -74,7 +74,7 @@ namespace DialogueEditor.Dialogue.Scripts
             switch (sentence.volume)
             {
                 case VolumeType.Neutral:
-                    text.text += $"<color={ColorUtility.ToHtmlStringRGB(text.color)}>{paragraph[i].sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(text.color)}>{sentence.sentence}</color>";
                     break;
                 case VolumeType.Shout:
                     text.text += $"<color=#b63c35>{sentence.sentence}</color>";
