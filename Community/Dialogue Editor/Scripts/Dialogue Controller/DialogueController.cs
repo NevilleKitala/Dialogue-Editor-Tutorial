@@ -47,7 +47,7 @@ namespace DialogueEditor.Dialogue.Scripts
                 totalVisibleCharacters += paragraph[i].sentence.Length;
                 switch(paragraph[i].volume){
                     case VolumeType.Neutral:
-                        SetText(paragraph[i].sentence);
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(text.color)}>{paragraph[i].sentence}</color>";
                         break;
                     case VolumeType.Shout:
                         text.text += $"<color=#b63c35>{paragraph[i].sentence}</color>";
@@ -74,7 +74,7 @@ namespace DialogueEditor.Dialogue.Scripts
             switch (sentence.volume)
             {
                 case VolumeType.Neutral:
-                    SetText(sentence.sentence);
+                    text.text += $"<color={ColorUtility.ToHtmlStringRGB(text.color)}>{paragraph[i].sentence}</color>";
                     break;
                 case VolumeType.Shout:
                     text.text += $"<color=#b63c35>{sentence.sentence}</color>";
