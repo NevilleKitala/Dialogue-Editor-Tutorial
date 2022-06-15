@@ -1,5 +1,6 @@
 ﻿using DialogueEditor.Events;
 using System;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -69,10 +70,26 @@ namespace DialogueEditor.Dialogue.Editor
             add.clicked += () =>
             {
                 string name = EditorInputDialogue.Show("New GameEvent Variable", "Please Enter Variable Name", "");
-                GameEventSO newEvent = GameEventSO.NewEvent(editorWindow.currentDialogueContainer, name);
-                objectField.value = newEvent;
-                editorWindow.currentDialogueContainer.variables.Add(newEvent);
-                RefreshExpandedState();
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
+                }
+                else
+                {
+
+                    GameEventSO newEvent = GameEventSO.NewEvent(editorWindow.currentDialogueContainer, name);
+
+                    AssetDatabase.AddObjectToAsset(newEvent, editorWindow.currentDialogueContainer);
+
+                    EditorUtility.SetDirty(newEvent);
+                    AssetDatabase.SaveAssets();
+
+                    EditorUtility.DisplayDialog("Success", "Created a new actor!", "OK");
+                    objectField.value = newEvent;
+                    editorWindow.currentDialogueContainer.variables.Add(newEvent);
+                    RefreshExpandedState();
+                }
             };
             remove.clicked += () =>
             {

@@ -62,24 +62,10 @@ namespace DialogueEditor.Events
 
         public static GameEventSO NewEvent(ScriptableObject so, string name)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
-                return null;
-            }
-            else
-            {
-                GameEventSO newEvent = ScriptableObject.CreateInstance<GameEventSO>();
-                EditorUtility.SetDirty(newEvent);
-                newEvent.name = name;
-                AssetDatabase.AddObjectToAsset(newEvent, so);
+            GameEventSO newEvent = ScriptableObject.CreateInstance<GameEventSO>();
+            newEvent.name = name;
 
-                AssetDatabase.SaveAssets();
-
-                EditorUtility.DisplayDialog("Success", "Created a new actor!", "OK");
-
-                return newEvent;
-            }
+            return newEvent;
         }
     }
 }
