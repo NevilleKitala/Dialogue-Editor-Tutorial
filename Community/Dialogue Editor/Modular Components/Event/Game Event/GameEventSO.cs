@@ -60,9 +60,8 @@ namespace DialogueEditor.Events
         }
         #endregion
 
-        public static GameEventSO NewEvent(ScriptableObject so)
+        public static GameEventSO NewEvent(ScriptableObject so, string name)
         {
-            string name = EditorInputDialogue.Show("New Game Event", "Please Enter Event Name", "");
             if (string.IsNullOrEmpty(name))
             {
                 EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
