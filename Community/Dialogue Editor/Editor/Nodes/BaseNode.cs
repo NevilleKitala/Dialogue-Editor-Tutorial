@@ -1157,7 +1157,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer);
+                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer, "");
                 objectField.value = value;
                 editorWindow.currentDialogueContainer.variables.Add(value);
                 RefreshExpandedState();
@@ -1236,7 +1236,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer);
+                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer, "");
                 objectField.value = value;
                 editorWindow.currentDialogueContainer.variables.Add(value);
                 RefreshExpandedState();
@@ -1315,7 +1315,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer);
+                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer, "");
                 objectField.value = value;
                 editorWindow.currentDialogueContainer.variables.Add(value);
                 RefreshExpandedState();
@@ -1390,7 +1390,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer);
+                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer, "");
                 objectField.value = value;
                 editorWindow.currentDialogueContainer.variables.Add(value);
                 RefreshExpandedState();
@@ -1470,7 +1470,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer);
+                StringVariableSO value = StringVariableSO.NewString(editorWindow.currentDialogueContainer, "");
                 objectField.value = value;
                 editorWindow.currentDialogueContainer.variables.Add(value);
                 RefreshExpandedState();
@@ -1554,7 +1554,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                FloatVariableSO value = FloatVariableSO.NewFloat(editorWindow.currentDialogueContainer);
+                FloatVariableSO value = FloatVariableSO.NewFloat(editorWindow.currentDialogueContainer, "");
                 editorWindow.currentDialogueContainer.variables.Add(value);
                 objectField.value = value;
                 RefreshExpandedState();
@@ -1634,7 +1634,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                IntVariableSO intVariableSO = IntVariableSO.NewInt(editorWindow.currentDialogueContainer);
+                IntVariableSO intVariableSO = IntVariableSO.NewInt(editorWindow.currentDialogueContainer, "");
                 editorWindow.currentDialogueContainer.variables.Add(intVariableSO);
                 objectField.value = intVariableSO;
                 RefreshExpandedState();
@@ -1700,7 +1700,7 @@ namespace DialogueEditor.Dialogue.Editor
 
             addActor.clicked += () =>
             {
-                objectField.value = BoolVariableSO.NewBool(editorWindow.currentDialogueContainer);
+                objectField.value = BoolVariableSO.NewBool(editorWindow.currentDialogueContainer, "");
                 RefreshExpandedState();
             };
             removeActor.clicked += () =>

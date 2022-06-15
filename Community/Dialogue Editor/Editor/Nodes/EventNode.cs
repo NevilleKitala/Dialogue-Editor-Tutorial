@@ -68,7 +68,8 @@ namespace DialogueEditor.Dialogue.Editor
 
             add.clicked += () =>
             {
-                GameEventSO newEvent = GameEventSO.NewEvent(editorWindow.currentDialogueContainer);
+                string name = EditorInputDialogue.Show("New GameEvent Variable", "Please Enter Variable Name", "");
+                GameEventSO newEvent = GameEventSO.NewEvent(editorWindow.currentDialogueContainer, name);
                 objectField.value = newEvent;
                 editorWindow.currentDialogueContainer.variables.Add(newEvent);
                 RefreshExpandedState();

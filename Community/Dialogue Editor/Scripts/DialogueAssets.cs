@@ -39,7 +39,7 @@ public class DialogueAssets : MonoBehaviour
             _instance.rightImage = this.rightImage;
             _instance.activeChoice = this.activeChoice;
 
-            Destroy(gameObject)
+            Destroy(gameObject);
         }
 
 

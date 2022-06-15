@@ -214,16 +214,6 @@ namespace DialogueEditor.Dialogue.Editor
                     )
                 );
 
-                VariablesMenu.menu.AppendAction("Game Event Variable", new Action<DropdownMenuAction>
-                (x =>
-                    {
-                        string name = EditorInputDialogue.Show("New GameEvent Variable", "Please Enter Variable Name", "");
-                        GameEventSO gameEventSO = gameEventSO.NewEvent(currentDialogueContainer, name);
-                        currentDialogueContainer.variables.Add(gameEventSO);
-                    }
-                )
-            );
-
                 toolbar.Add(VariablesMenu);
             }
 
