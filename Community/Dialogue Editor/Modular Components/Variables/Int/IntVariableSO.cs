@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace DialogueEditor.ModularComponents
@@ -37,19 +36,9 @@ namespace DialogueEditor.ModularComponents
 
         public static IntVariableSO NewInt(ScriptableObject so, string name)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
-                return null;
-            }
-            else
-            {
-                IntVariableSO newInt = ScriptableObject.CreateInstance<IntVariableSO>();
-                newInt.name = name;
-                EditorUtility.SetDirty(newInt);
-                AssetDatabase.AddObjectToAsset(newInt, so);
-                return newInt;
-            }
+            IntVariableSO newInt = ScriptableObject.CreateInstance<IntVariableSO>();
+            newInt.name = name;
+            return newInt;
         }
     }
 }

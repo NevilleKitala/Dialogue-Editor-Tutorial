@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DialogueEditor.ModularComponents
 {
@@ -37,20 +36,9 @@ namespace DialogueEditor.ModularComponents
 
         public static FloatVariableSO NewFloat(ScriptableObject so, string name)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
-                return null;
-            }
-            else
-            {
-
-                FloatVariableSO newFloat = ScriptableObject.CreateInstance<FloatVariableSO>();
-                newFloat.name = name;
-                EditorUtility.SetDirty(newFloat);
-                AssetDatabase.AddObjectToAsset(newFloat, so);
-                    return newFloat;
-                }
+            FloatVariableSO newFloat = ScriptableObject.CreateInstance<FloatVariableSO>();
+            newFloat.name = name;
+            return newFloat;
         }
     }
 }

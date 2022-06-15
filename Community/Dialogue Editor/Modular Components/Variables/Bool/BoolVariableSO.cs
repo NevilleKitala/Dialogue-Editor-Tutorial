@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace DialogueEditor.ModularComponents
@@ -33,21 +32,9 @@ namespace DialogueEditor.ModularComponents
 
         public static BoolVariableSO NewBool(ScriptableObject so, string name)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
-                return null;
-            }
-            else
-            {
-
-                BoolVariableSO newBool = ScriptableObject.CreateInstance<BoolVariableSO>();
-                newBool.name = name;
-                EditorUtility.SetDirty(newBool);
-
-                AssetDatabase.AddObjectToAsset(newBool, so);
-                return newBool;
-            }
+            BoolVariableSO newBool = ScriptableObject.CreateInstance<BoolVariableSO>();
+            newBool.name = name;
+            return newBool;
         }
     }
 }

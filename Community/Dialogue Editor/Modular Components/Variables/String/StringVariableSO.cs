@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace DialogueEditor.ModularComponents
@@ -37,20 +36,9 @@ namespace DialogueEditor.ModularComponents
 
         public static StringVariableSO NewString(ScriptableObject container, string name)
         {
-            if (string.IsNullOrEmpty(name))
-                EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                StringVariableSO newString = ScriptableObject.CreateInstance<StringVariableSO>();
-                newString.name = name;
-                EditorUtility.SetDirty(newString);
-
-                AssetDatabase.AddObjectToAsset(newString, container);
-                return newString;
-            }
-            else
-                return null;
+            StringVariableSO newString = ScriptableObject.CreateInstance<StringVariableSO>();
+            newString.name = name;
+            return newString;
         }
     }
 }

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace DialogueEditor.ModularComponents
@@ -13,28 +12,12 @@ namespace DialogueEditor.ModularComponents
 
         public static Actor NewActor(ScriptableObject so, string name)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
-                return null;
-            }
-            else
-            {
+            Actor newActor = ScriptableObject.CreateInstance<Actor>();
 
-                Actor newActor = ScriptableObject.CreateInstance<Actor>();
-                EditorUtility.SetDirty(newActor);
-
-                AssetDatabase.AddObjectToAsset(newActor, so);
-                newActor.name = name;
-                newActor.dialogueAssetsName = newActor.name;
-                newActor.actorType = ActorType.NPC;
-
-                AssetDatabase.SaveAssets();
-
-                EditorUtility.DisplayDialog("Success", "Created a new actor!", "OK");
-
-                return newActor;
-            }
+            newActor.name = name;
+            newActor.dialogueAssetsName = newActor.name;
+            newActor.actorType = ActorType.NPC;
+            return newActor;
         }
     }
 

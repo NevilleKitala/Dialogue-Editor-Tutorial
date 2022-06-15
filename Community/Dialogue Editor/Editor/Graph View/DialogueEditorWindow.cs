@@ -158,10 +158,23 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("String Variable", new Action<DropdownMenuAction>
                     (x =>
                         {
-
                             string name = EditorInputDialogue.Show("New String Variable", "Please Enter Variable Name", "");
-                            StringVariableSO stringVariable = StringVariableSO.NewString(currentDialogueContainer, name);
-                            currentDialogueContainer.variables.Add(stringVariable);
+
+                            if (string.IsNullOrEmpty(name))
+                            {
+                                EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
+                            }
+                            else
+                            {
+                                StringVariableSO stringVariable = StringVariableSO.NewString(currentDialogueContainer, name);
+                                currentDialogueContainer.variables.Add(stringVariable);
+                                AssetDatabase.AddObjectToAsset(stringVariable, currentDialogueContainer);
+                                EditorUtility.SetDirty(stringVariable);
+                                AssetDatabase.SaveAssets();
+
+                                EditorUtility.DisplayDialog("Success", "Created a new String!", "OK");
+
+                            }
                         }
                     )
                 );
@@ -169,10 +182,23 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("Int Variable", new Action<DropdownMenuAction>
                     (x =>
                     {
-
                         string name = EditorInputDialogue.Show("New Int Variable", "Please Enter Variable Name", "");
-                        IntVariableSO intVariableSO = IntVariableSO.NewInt(currentDialogueContainer,name);
-                        currentDialogueContainer.variables.Add(intVariableSO);
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
+                        }
+                        else
+                        {
+                            IntVariableSO intVariableSO = IntVariableSO.NewInt(currentDialogueContainer, name);
+                            currentDialogueContainer.variables.Add(intVariableSO);
+                            AssetDatabase.AddObjectToAsset(intVariableSO, currentDialogueContainer);
+                            EditorUtility.SetDirty(intVariableSO);
+                            AssetDatabase.SaveAssets();
+
+                            EditorUtility.DisplayDialog("Success", "Created a new Int!", "OK");
+
+                        }
                     }
                     )
                 );
@@ -180,10 +206,23 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("Bool Variable", new Action<DropdownMenuAction>
                     (x =>
                     {
-
                         string name = EditorInputDialogue.Show("New Bool Variable", "Please Enter Variable Name", "");
-                        BoolVariableSO boolVariableSO = BoolVariableSO.NewBool(currentDialogueContainer, name);
-                        currentDialogueContainer.variables.Add(boolVariableSO);
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
+                        }
+                        else
+                        {
+                            BoolVariableSO boolVariableSO = BoolVariableSO.NewBool(currentDialogueContainer, name);
+                            currentDialogueContainer.variables.Add(boolVariableSO);
+                            AssetDatabase.AddObjectToAsset(boolVariableSO, currentDialogueContainer);
+                            EditorUtility.SetDirty(boolVariableSO);
+                            AssetDatabase.SaveAssets();
+
+                            EditorUtility.DisplayDialog("Success", "Created a new Bool!", "OK");
+
+                        }
                     }
                     )
                 );
@@ -191,10 +230,23 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("Float Variable", new Action<DropdownMenuAction>
                     (x =>
                     {
-
                         string name = EditorInputDialogue.Show("New Float Variable", "Please Enter Variable Name", "");
-                        FloatVariableSO floatVariableSO = FloatVariableSO.NewFloat(currentDialogueContainer, name);
-                        currentDialogueContainer.variables.Add(floatVariableSO);
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
+                        }
+                        else
+                        {
+                            FloatVariableSO floatVariableSO = FloatVariableSO.NewFloat(currentDialogueContainer, name);
+                            currentDialogueContainer.variables.Add(floatVariableSO);
+                            AssetDatabase.AddObjectToAsset(floatVariableSO, currentDialogueContainer);
+                            EditorUtility.SetDirty(floatVariableSO);
+                            AssetDatabase.SaveAssets();
+
+                            EditorUtility.DisplayDialog("Success", "Created a new Float!", "OK");
+
+                        }
                     }
                     )
                 );
@@ -204,12 +256,28 @@ namespace DialogueEditor.Dialogue.Editor
                     {
 
                         string name = EditorInputDialogue.Show("New Actor Variable", "Please Enter Variable Name", "");
-                        Actor actor = Actor.NewActor(currentDialogueContainer, name);
-                        currentDialogueContainer.variables.Add(actor);
-                        Container_Actor participatingActor = new Container_Actor();
-                        participatingActor.actor = actor;
-                        currentDialogueContainer.StartData.ParticipatingActors.Add(participatingActor);
-                        Load();
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
+                        }
+                        else
+                        {
+
+                            Actor actor = Actor.NewActor(currentDialogueContainer, name);
+                            currentDialogueContainer.variables.Add(actor);
+                            AssetDatabase.AddObjectToAsset(actor, currentDialogueContainer);
+                            EditorUtility.SetDirty(actor);
+                            AssetDatabase.SaveAssets();
+
+                            EditorUtility.DisplayDialog("Success", "Created a new Float!", "OK");
+
+                            Container_Actor participatingActor = new Container_Actor();
+                            participatingActor.actor = actor;
+                            currentDialogueContainer.StartData.ParticipatingActors.Add(participatingActor);
+
+                            Load();
+                        }
                     }
                     )
                 );
