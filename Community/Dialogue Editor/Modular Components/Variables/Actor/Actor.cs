@@ -11,9 +11,8 @@ namespace DialogueEditor.ModularComponents
 
         public bool actorSpeaking = false;
 
-        public static Actor NewActor(ScriptableObject so)
+        public static Actor NewActor(ScriptableObject so, string name)
         {
-            string name = EditorInputDialogue.Show("New Actor", "Please Enter Variable Name", "Actor", "New Actor");
             if (string.IsNullOrEmpty(name))
             {
                 EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");

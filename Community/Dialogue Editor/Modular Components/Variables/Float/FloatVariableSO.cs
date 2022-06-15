@@ -35,9 +35,8 @@ namespace DialogueEditor.ModularComponents
             _value += amount.Value;
         }
 
-        public static FloatVariableSO NewFloat(ScriptableObject so)
+        public static FloatVariableSO NewFloat(ScriptableObject so, string name)
         {
-            string name = EditorInputDialogue.Show("New Float Variable", "Please Enter Variable Name", "");
             if (string.IsNullOrEmpty(name))
             {
                 EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");

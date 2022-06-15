@@ -158,7 +158,9 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("String Variable", new Action<DropdownMenuAction>
                     (x =>
                         {
-                            StringVariableSO stringVariable = StringVariableSO.NewString(currentDialogueContainer);
+
+                            string name = EditorInputDialogue.Show("New String Variable", "Please Enter Variable Name", "");
+                            StringVariableSO stringVariable = StringVariableSO.NewString(currentDialogueContainer, name);
                             currentDialogueContainer.variables.Add(stringVariable);
                         }
                     )
@@ -167,7 +169,9 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("Int Variable", new Action<DropdownMenuAction>
                     (x =>
                     {
-                        IntVariableSO intVariableSO = IntVariableSO.NewInt(currentDialogueContainer);
+
+                        string name = EditorInputDialogue.Show("New Int Variable", "Please Enter Variable Name", "");
+                        IntVariableSO intVariableSO = IntVariableSO.NewInt(currentDialogueContainer,name);
                         currentDialogueContainer.variables.Add(intVariableSO);
                     }
                     )
@@ -176,7 +180,9 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("Bool Variable", new Action<DropdownMenuAction>
                     (x =>
                     {
-                        BoolVariableSO boolVariableSO = BoolVariableSO.NewBool(currentDialogueContainer);
+
+                        string name = EditorInputDialogue.Show("New Bool Variable", "Please Enter Variable Name", "");
+                        BoolVariableSO boolVariableSO = BoolVariableSO.NewBool(currentDialogueContainer, name);
                         currentDialogueContainer.variables.Add(boolVariableSO);
                     }
                     )
@@ -185,7 +191,9 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("Float Variable", new Action<DropdownMenuAction>
                     (x =>
                     {
-                        FloatVariableSO floatVariableSO = FloatVariableSO.NewFloat(currentDialogueContainer);
+
+                        string name = EditorInputDialogue.Show("New Float Variable", "Please Enter Variable Name", "");
+                        FloatVariableSO floatVariableSO = FloatVariableSO.NewFloat(currentDialogueContainer, name);
                         currentDialogueContainer.variables.Add(floatVariableSO);
                     }
                     )
@@ -194,7 +202,9 @@ namespace DialogueEditor.Dialogue.Editor
                 VariablesMenu.menu.AppendAction("Actor Variable", new Action<DropdownMenuAction>
                     (x =>
                     {
-                        Actor actor = Actor.NewActor(currentDialogueContainer);
+
+                        string name = EditorInputDialogue.Show("New Actor Variable", "Please Enter Variable Name", "");
+                        Actor actor = Actor.NewActor(currentDialogueContainer, name);
                         currentDialogueContainer.variables.Add(actor);
                         Container_Actor participatingActor = new Container_Actor();
                         participatingActor.actor = actor;

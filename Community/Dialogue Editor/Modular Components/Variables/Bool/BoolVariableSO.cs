@@ -31,9 +31,8 @@ namespace DialogueEditor.ModularComponents
             Value = value.Value;
         }
 
-        public static BoolVariableSO NewBool(ScriptableObject so)
+        public static BoolVariableSO NewBool(ScriptableObject so, string name)
         {
-            string name = EditorInputDialogue.Show("New Bool Variable", "Please Enter Variable Name", "");
             if (string.IsNullOrEmpty(name))
             {
                 EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");

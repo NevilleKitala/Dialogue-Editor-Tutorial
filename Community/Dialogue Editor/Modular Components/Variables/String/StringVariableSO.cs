@@ -35,9 +35,8 @@ namespace DialogueEditor.ModularComponents
             _value += amount.Value;
         }
 
-        public static StringVariableSO NewString(ScriptableObject container)
+        public static StringVariableSO NewString(ScriptableObject container, string name)
         {
-            string name = EditorInputDialogue.Show("New String Variable", "Please Enter Variable Name", "");
             if (string.IsNullOrEmpty(name))
                 EditorUtility.DisplayDialog("Canceled", "You're variable was not Created. It had no name", "OK");
 
