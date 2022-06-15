@@ -47,22 +47,22 @@ namespace DialogueEditor.Dialogue.Scripts
                 totalVisibleCharacters += paragraph[i].sentence.Length;
                 switch(paragraph[i].volume){
                     case VolumeType.Neutral:
-                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(text.color)}>{paragraph[i].sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.neutral)}>{paragraph[i].sentence}</color>";
                         break;
                     case VolumeType.Shout:
-                        text.text += $"<color=#b63c35>{paragraph[i].sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.shout)}>{paragraph[i].sentence}</color>";
                         break;
                     case VolumeType.Drunk:
-                        text.text += $"<color=#e8cb82>{paragraph[i].sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.drunk)}>{paragraph[i].sentence}</color>";
                         break;
                     case VolumeType.Whisper:
-                        text.text += $"<color=#24aed6>{paragraph[i].sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.whisper)}>{paragraph[i].sentence}</color>";
                         break;
                     case VolumeType.Tired:
-                        text.text += $"<color=#cdd2da>{paragraph[i].sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.tired)}>{paragraph[i].sentence}</color>";
                         break;
                     case VolumeType.Special:
-                        text.text += $"<color=#ffbc4e>{paragraph[i].sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.special)}>{paragraph[i].sentence}</color>";
                         break;
                 }
             }
@@ -74,22 +74,22 @@ namespace DialogueEditor.Dialogue.Scripts
             switch (sentence.volume)
             {
                 case VolumeType.Neutral:
-                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(text.color)}>{sentence.sentence}</color>";
+                        text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.neutral)}>{sentence.sentence}</color>";
                     break;
                 case VolumeType.Shout:
-                    text.text += $"<color=#b63c35>{sentence.sentence}</color>";
+                    text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.shout)}>{sentence.sentence}</color>";
                     break;
                 case VolumeType.Drunk:
-                    text.text += $"<color=#e8cb82>{sentence.sentence}</color>";
+                    text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.drunk)}>{sentence.sentence}</color>";
                     break;
                 case VolumeType.Whisper:
-                    text.text += $"<color=#24aed6>{sentence.sentence}</color>";
+                    text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.whisper)}>{sentence.sentence}</color>";
                     break;
                 case VolumeType.Tired:
-                    text.text += $"<color=#cdd2da>{sentence.sentence}</color>";
+                    text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.tired)}>{sentence.sentence}</color>";
                     break;
                 case VolumeType.Special:
-                    text.text += $"<color=#ffbc4e>{sentence.sentence}</color>";
+                    text.text += $"<color={ColorUtility.ToHtmlStringRGB(DialogueAssets.Instance.special)}>{sentence.sentence}</color>";
                     break;
             }
 

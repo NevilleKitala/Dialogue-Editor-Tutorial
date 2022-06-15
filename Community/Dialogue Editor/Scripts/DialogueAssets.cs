@@ -9,6 +9,13 @@ public class DialogueAssets : MonoBehaviour
 {
     public static DialogueAssets _instance;
 
+    public Color neutral = Color.white;
+    public Color whisper = Color.grey;
+    public Color shout = Color.red;
+    public Color drunk = Color.blue;
+    public Color tired = Color.magenta;
+    public Color special = Color.cyan;
+
     public static DialogueAssets Instance{
         get {
             if(_instance is null)
@@ -18,7 +25,24 @@ public class DialogueAssets : MonoBehaviour
     }
 
     private void Awake() {
-        _instance = this;
+        if (_instance is null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            _instance.dialogueUI = this.dialogueUI;
+            _instance.textName = this.textName;
+            _instance.textBox = this.textBox;
+            _instance.leftImage = this.leftImage;
+            _instance.rightImage = this.rightImage;
+            _instance.activeChoice = this.activeChoice;
+
+            Destroy(gameObject)
+        }
+
+
     }
 
     [Header("DialogueAssets Details")]
@@ -32,7 +56,7 @@ public class DialogueAssets : MonoBehaviour
     [SerializeField] public Image leftImage;
     [SerializeField] public Image rightImage;
 
-    private Button activeChoice;
+    public Button activeChoice;
     public UnityEvent continueEvent;
 
     public void choiceSelect(){
