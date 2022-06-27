@@ -10,7 +10,7 @@ namespace DialogueEditor.Dialogue.Editor
         private DialogueEditorWindow editorWindow;
         private DialogueGraphView graphView;
 
-        private Texture2D iconImage;
+        private Texture2D icon;
 
         public void Configure(DialogueEditorWindow editorWindow, DialogueGraphView graphView)
         {
@@ -18,24 +18,33 @@ namespace DialogueEditor.Dialogue.Editor
             this.graphView = graphView;
 
 
-            iconImage = new Texture2D(1, 1);
-            iconImage.SetPixel(0, 0, new Color(0, 0, 0, 0));
-            iconImage.Apply();
+            icon = new Texture2D(1, 1);
+            icon.SetPixel(0, 0, new Color(0, 0, 0, 0));
+            icon.Apply();
         }
 
+
+        private void OnDestroy()
+        {
+            if (icon != null)
+            {
+                DestroyImmediate(icon);
+                icon = null;
+            }
+        }
 
         public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
         {
             List<SearchTreeEntry> tree = new List<SearchTreeEntry>
             {
                 new SearchTreeGroupEntry(new GUIContent("Dialogue Editor"),0),
-                //new SearchTreeGroupEntry(new GUIContent("Dialogue Node"),1),
+                //new SearchTreeGroupEntry(new GUIContent(""),1),
 
                 AddNodeSearch("Dialogue",new DialogueNode()),
                 AddNodeSearch("Branch",new BranchNode()),
                 AddNodeSearch("Event",new EventNode()),
                 AddNodeSearch("Modifier",new ModifierNode()),
-                AddNodeSearch("Choice Connector",new ChoiceConnectorNode()),
+                //AddNodeSearch("Choice Connector",new ChoiceConnectorNode()),
             };
 
             return tree;

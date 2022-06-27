@@ -179,14 +179,14 @@ namespace DialogueEditor.Dialogue.Editor
 
                 if (boxExpanded)
                 {
-                    buttonsBox.Add(expanding);
+                    //buttonsBox.Add(expanding);
                     expanding.text = "▲";
                 }
                 else
                 {
                     
                     expanding.text = "▼";
-                    topBoxContainer.Add(expanding);
+                    //topBoxContainer.Add(expanding);
                 }
 
                 buttonsBox.ToggleInClassList("hidden");
