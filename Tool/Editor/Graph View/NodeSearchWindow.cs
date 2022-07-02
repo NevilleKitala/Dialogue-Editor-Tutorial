@@ -44,7 +44,6 @@ namespace DialogueEditor.Dialogue.Editor
                 AddNodeSearch("Branch",new BranchNode()),
                 AddNodeSearch("Event",new EventNode()),
                 AddNodeSearch("Modifier",new ModifierNode()),
-                //AddNodeSearch("Choice Connector",new ChoiceConnectorNode()),
             };
 
             return tree;

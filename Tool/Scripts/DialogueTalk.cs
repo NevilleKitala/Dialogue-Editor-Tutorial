@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace DialogueEditor.Dialogue.Scripts
 {
@@ -83,6 +82,9 @@ namespace DialogueEditor.Dialogue.Scripts
                     RunNode(nodeData);
                     break;
                 case BranchData nodeData:
+                    RunNode(nodeData);
+                    break;
+                case ModifierData nodeData:
                     RunNode(nodeData);
                     break;
                 default:
