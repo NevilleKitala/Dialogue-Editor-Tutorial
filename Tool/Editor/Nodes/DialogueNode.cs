@@ -110,6 +110,7 @@ namespace DialogueEditor.Dialogue.Editor
             {
                 newDialogueData_Sentence.GuidID = data_Sentence.GuidID;
                 newDialogueData_Sentence.volumeType.Value = data_Sentence.volumeType.Value;
+                newDialogueData_Sentence.pauseAtPunctuation.Value = data_Sentence.pauseAtPunctuation.Value;
 
                 // Text
                 foreach (LanguageGeneric<string> data_text in data_Sentence.Text)
