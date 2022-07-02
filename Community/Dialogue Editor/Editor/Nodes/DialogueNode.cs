@@ -59,7 +59,6 @@ namespace DialogueEditor.Dialogue.Editor
 
             // Add Fields
             AddLabelAndButton(DialogueData.DialogueData_Text, boxContainer, "Paragraph", "");
-            AddAudioClips(DialogueData.DialogueData_Text, boxContainer);
             AddImages(DialogueData.DialogueData_Text, boxContainer);
             // Load in data if it got any
             if (data_Text != null)
@@ -74,18 +73,6 @@ namespace DialogueEditor.Dialogue.Editor
                 for (int i = 0; i < data_Text.sentence.Count; i++)
                 {
                     SentenceLine(boxContainer, DialogueData.DialogueData_Text, data_Text.sentence[i]);
-                }
-
-                // Audio
-                foreach (LanguageGeneric<AudioClip> data_audioclip in data_Text.AudioClips)
-                {
-                    foreach (LanguageGeneric<AudioClip> audioclip in DialogueData.DialogueData_Text.AudioClips)
-                    {
-                        if (audioclip.LanguageType == data_audioclip.LanguageType)
-                        {
-                            audioclip.LanguageGenericType = data_audioclip.LanguageGenericType;
-                        }
-                    }
                 }
             }
             else
@@ -261,15 +248,6 @@ namespace DialogueEditor.Dialogue.Editor
 
             boxContainer.Add(pauseAfterFullStoplabel);
             boxContainer.Add(pauseAtFullStop);
-        }
-
-        private void AddAudioClips(DialogueData_Text container, Box boxContainer)
-        {
-            ObjectField objectField = GetNewObjectField_AudioClipsLanguage(container.AudioClips, "AudioClip");
-
-            container.ObjectField = objectField;
-
-            boxContainer.Add(objectField);
         }
 
         private void AddImages(DialogueData_Text container, Box boxContainer)

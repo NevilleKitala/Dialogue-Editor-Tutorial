@@ -89,9 +89,6 @@ namespace DialogueEditor.Dialogue.Editor
                 case BranchNode node:
                     graphView.AddElement(graphView.CreateBranchNode(position));
                     return true;
-                case ChoiceConnectorNode node:
-                    graphView.AddElement(graphView.CreateChoiceConnectorNode(position));
-                    return true;
                 default:
                     break;
             }

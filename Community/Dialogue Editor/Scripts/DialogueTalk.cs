@@ -40,25 +40,6 @@ namespace DialogueEditor.Dialogue.Scripts
             }
         }
 
-        //private IEnumerator Teletype() {
-        //    teletypeCheck = true;
-        //    while (DialogueController.Instance.counter <= DialogueController.Instance.totalVisibleCharacters)
-        //    {
-        //        if(DialogueController.Instance.timer > DialogueController.Instance.timerThreshold) 
-        //        {
-
-        //            DialogueController.Instance.text.maxVisibleCharacters = DialogueController.Instance.counter;
-        //            DialogueController.Instance.timer = 0;
-        //            DialogueController.Instance.counter++;
-        //        }
-                
-        //        DialogueController.Instance.timer += Time.deltaTime;
-
-        //        yield return new WaitForSeconds(DialogueController.Instance.timerThreshold);
-        //    }
-        //    teletypeCheck = false;
-        //}
-
         public void StartDialogue()
         {
             if (dialogueContainerSO.StartData != null && lastDialogueNodeData == null)
@@ -102,9 +83,6 @@ namespace DialogueEditor.Dialogue.Scripts
                     RunNode(nodeData);
                     break;
                 case BranchData nodeData:
-                    RunNode(nodeData);
-                    break;
-                case ChoiceConnectorData nodeData:
                     RunNode(nodeData);
                     break;
                 default:
@@ -238,106 +216,6 @@ namespace DialogueEditor.Dialogue.Scripts
             DialogueToDo();
         }
 
-        private void RunNode(ChoiceConnectorData nodeData)
-        {
-
-            DialogueController.Instance.ShowDialogueUI(false);
-            List<DialogueButtonContainer> dialogueButtonContainers = new List<DialogueButtonContainer>();
-            foreach (DialogueData_Port port in nodeData.DialogueData_Ports)
-            {
-                ChoiceCheck(port.InputGuid, dialogueButtonContainers);
-            }
-
-            if (dialogueButtonContainers.Count > 0)
-            {
-                DialogueController.Instance.SetText("");
-
-            }
-            //DialogueController.Instance.SetButtons(dialogueButtonContainers);
-            DialogueController.Instance.ShowDialogueUI(true);
-        }
-
-        private void ChoiceCheck(string guidID, List<DialogueButtonContainer> dialogueButtonContainers)
-        {
-            BaseData asd = GetNodeByGuid(guidID);
-            ChoiceData choiceNode = GetNodeByGuid(guidID) as ChoiceData;
-            DialogueButtonContainer dialogueButtonContainer = new DialogueButtonContainer();
-
-            bool checkBranch = true;
-
-            foreach (EventData_StringCondition item in choiceNode.EventData_StringConditions)
-            {
-                if (!DMCCondition.StringCondition(item))
-                {
-                    checkBranch = false;
-                    break;
-                }
-            }
-            foreach (EventData_FloatCondition item in choiceNode.EventData_FloatConditions)
-            {
-                if (!DMCCondition.FloatCondition(item))
-                {
-                    checkBranch = false;
-                    break;
-                }
-            }
-            foreach (EventData_IntCondition item in choiceNode.EventData_IntConditions)
-            {
-                if (!DMCCondition.IntCondition(item))
-                {
-                    checkBranch = false;
-                    break;
-                }
-            }
-            foreach (EventData_BoolCondition item in choiceNode.EventData_BoolConditions)
-            {
-                if (!DMCCondition.BoolCondition(item))
-                {
-                    checkBranch = false;
-                    break;
-                }
-            }
-
-            UnityAction unityAction = null;
-            unityAction += () =>
-            {
-                nextNodeCheck = () => { CheckNodeType(GetNextNode(choiceNode)); };
-                runCheck = true;
-            };
-
-            dialogueButtonContainer.ChoiceState = choiceNode.ChoiceStateTypes.Value;
-            dialogueButtonContainer.Text = choiceNode.Text.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
-            dialogueButtonContainer.UnityAction = unityAction;
-            dialogueButtonContainer.ConditionCheck = checkBranch;
-
-            dialogueButtonContainers.Add(dialogueButtonContainer);
-        }
-
-        //private void DialogueToDo()
-        //{
-        //    List<Sentence> parsedParagraph = new List<Sentence>();
-        //    foreach (DialogueData_Sentence sentence in paragraph)
-        //    {
-        //        Sentence currentSentence = new Sentence();
-        //        currentSentence.sentence = " " + sentence.Text.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
-        //        currentSentence.volume = sentence.volumeType.Value;
-        //        currentSentence.pause.pauseAfterComma = sentence.pauseAfterComma.Value;
-        //        currentSentence.pause.pauseAtFullStop = sentence.pauseAtFullStop.Value;
-        //        parsedParagraph.Add(currentSentence);
-        //    }
-
-        //    if (currentDialogueNodeData.DialogueData_Text.Sprite_Left.Value)
-        //        DialogueController.Instance.SetLeftImage(currentDialogueNodeData.DialogueData_Text.Sprite_Left.Value);
-        //    if (currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value)
-        //        DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
-
-        //    PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
-        //    DialogueController.Instance.ShowDialogueUI(true);
-        //    DialogueController.Instance.SetDynamicText(parsedParagraph);
-        //    teletype = Teletype();
-        //    StartCoroutine(teletype);
-        //}
-
         private void DialogueToDo()
         {
             List<Sentence> parsedParagraph = new List<Sentence>();
@@ -360,8 +238,6 @@ namespace DialogueEditor.Dialogue.Scripts
                 DialogueController.Instance.SetLeftImage(currentDialogueNodeData.DialogueData_Text.Sprite_Left.Value);
             if (currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value)
                 DialogueController.Instance.SetRightImage(currentDialogueNodeData.DialogueData_Text.Sprite_Right.Value);
-
-            PlayAudio(currentDialogueNodeData.DialogueData_Text.AudioClips.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
 
             DialogueController.Instance.ShowDialogueUI(true);
             DialogueController.Instance.SetDynamicSentence(parsedParagraph[0]);
@@ -420,14 +296,6 @@ namespace DialogueEditor.Dialogue.Scripts
                 StartCoroutine(teletype);
                 StopCoroutine(temp);
             }
-        }
-
-
-        private void PlayAudio(AudioClip audioClip)
-        {
-            audioSource.Stop();
-            audioSource.clip = audioClip;
-            audioSource.Play();
         }
 
         public void GetNext()

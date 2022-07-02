@@ -166,13 +166,5 @@ namespace DialogueEditor.Dialogue.Editor
         /// </summary>
         /// <param name="position">position of where to place the node</param>
         /// <returns>Choice Node</returns>
-        public ChoiceNode CreateChoiceNode(Vector2 position)
-        {
-            return new ChoiceNode(position, editorWindow, this);
-        }
-        public ChoiceConnectorNode CreateChoiceConnectorNode(Vector2 position)
-        {
-            return new ChoiceConnectorNode(position, editorWindow, this);
-        }
     }
 }

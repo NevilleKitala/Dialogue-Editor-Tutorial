@@ -44,10 +44,10 @@ namespace DialogueEditor.Dialogue
     {
 #if UNITY_EDITOR
         public List<DialogueData_Sentence> sentence = new List<DialogueData_Sentence>();
-        public ObjectField ObjectField { get; set; }
+        //public ObjectField ObjectField { get; set; }
 #endif
         public Container_String GuidID = new Container_String();
-        public List<LanguageGeneric<AudioClip>> AudioClips = new List<LanguageGeneric<AudioClip>>();
+        //public List<LanguageGeneric<AudioClip>> AudioClips = new List<LanguageGeneric<AudioClip>>();
 
         public Container_Sprite Sprite_Left = new Container_Sprite();
         public Container_Sprite Sprite_Right = new Container_Sprite();

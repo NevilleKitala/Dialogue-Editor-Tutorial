@@ -114,8 +114,6 @@ namespace DialogueEditor.Dialogue.Editor
             DialogueContainerSO.ModifierData.Clear();
             DialogueContainerSO.BranchData.Clear();
             DialogueContainerSO.DialogueData.Clear();
-            DialogueContainerSO.ChoiceData.Clear();
-            DialogueContainerSO.ChoiceConnectorData.Clear();
 
             nodes.ForEach(node =>
             {
@@ -138,13 +136,6 @@ namespace DialogueEditor.Dialogue.Editor
                         break;
                     case ModifierNode modifierNode:
                         DialogueContainerSO.ModifierData.Add(SaveNodeData(modifierNode));
-                        break;
-                    case ChoiceNode choiceNode:
-                        DialogueContainerSO.ChoiceData.Add(SaveNodeData(choiceNode));
-                        break;
-
-                    case ChoiceConnectorNode choiceConnectorNode:
-                        DialogueContainerSO.ChoiceConnectorData.Add(SaveNodeData(choiceConnectorNode));
                         break;
                     default:
                         break;
@@ -170,8 +161,6 @@ namespace DialogueEditor.Dialogue.Editor
             dialogueData.DialogueData_Text.sentence.AddRange(tmp.sentence);
             dialogueData.DialogueData_Text.Sprite_Left = tmp.Sprite_Left;
             dialogueData.DialogueData_Text.Sprite_Right = tmp.Sprite_Right;
-
-            dialogueData.DialogueData_Text.AudioClips = tmp.AudioClips;
 
             return dialogueData;
         }
@@ -326,63 +315,6 @@ namespace DialogueEditor.Dialogue.Editor
 
             return nodeData;
         }
-
-        private ChoiceData SaveNodeData(ChoiceNode node)
-        {
-            ChoiceData nodeData = new ChoiceData()
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-
-                Text = node.ChoiceData.Text,
-                AudioClips = node.ChoiceData.AudioClips,
-            };
-            nodeData.ChoiceStateTypes.Value = node.ChoiceData.ChoiceStateTypes.Value;
-
-            foreach (EventData_StringCondition stringEvents in node.ChoiceData.EventData_StringConditions)
-            {
-                EventData_StringCondition tmp = new EventData_StringCondition();
-                tmp.VariableSO = stringEvents.VariableSO;
-                tmp.Value.Value = stringEvents.Value.Value;
-                tmp.EventType.Value = stringEvents.EventType.Value;
-
-                nodeData.EventData_StringConditions.Add(tmp);
-            }
-
-            return nodeData;
-        }
-
-        private ChoiceConnectorData SaveNodeData(ChoiceConnectorNode node)
-        {
-            ChoiceConnectorData choiceConnectorData = new ChoiceConnectorData
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-            };
-
-            // Port
-            foreach (DialogueData_Port port in node.ChoiceConnectorData.DialogueData_Ports)
-            {
-                DialogueData_Port portData = new DialogueData_Port();
-
-                portData.OutputGuid = string.Empty;
-                portData.InputGuid = string.Empty;
-                portData.PortGuid = port.PortGuid;
-
-                foreach (Edge edge in edges)
-                {
-                    if (edge.output.portName == port.PortGuid)
-                    {
-                        portData.OutputGuid = (edge.output.node as BaseNode).NodeGuid;
-                        portData.InputGuid = (edge.input.node as BaseNode).NodeGuid;
-                    }
-                }
-
-                choiceConnectorData.DialogueData_Ports.Add(portData);
-            }
-
-            return choiceConnectorData;
-        }
         #endregion
 
         #region Load
@@ -444,8 +376,6 @@ namespace DialogueEditor.Dialogue.Editor
                 GenerateNodes(dialogueContainer.EventData);
                 GenerateNodes(dialogueContainer.BranchData);
                 GenerateNodes(dialogueContainer.ModifierData);
-                GenerateNodes(dialogueContainer.ChoiceData);
-                GenerateNodes(dialogueContainer.ChoiceConnectorData);
                 GenerateNodes(dialogueContainer.DialogueData);
             }
         }
@@ -543,54 +473,6 @@ namespace DialogueEditor.Dialogue.Editor
                 tempNode.ReloadLanguage();
                 graphView.AddElement(tempNode);
 
-            }
-        }
-
-        // Choice Node
-        private void GenerateNodes(List<ChoiceData> choiceData)
-        {
-            foreach (ChoiceData node in choiceData)
-            {
-                ChoiceNode tempNode = graphView.CreateChoiceNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-
-                tempNode.ChoiceData.ChoiceStateTypes.Value = node.ChoiceStateTypes.Value;
-
-                foreach (LanguageGeneric<string> dataText in node.Text)
-                {
-                    foreach (LanguageGeneric<string> editorText in tempNode.ChoiceData.Text)
-                    {
-                        if (editorText.LanguageType == dataText.LanguageType)
-                        {
-                            editorText.LanguageGenericType = dataText.LanguageGenericType;
-                        }
-                    }
-                }
-
-                tempNode.LoadValueInToField();
-                tempNode.ReloadLanguage();
-                graphView.AddElement(tempNode);
-            }
-        }
-
-        // Choice Connector Node
-        private void GenerateNodes(List<ChoiceConnectorData> choiceConnectorDatas)
-        {
-            foreach (ChoiceConnectorData node in choiceConnectorDatas)
-            {
-                ChoiceConnectorNode tempNode = graphView.CreateChoiceConnectorNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-
-                foreach (DialogueData_Port port in node.DialogueData_Ports)
-                {
-                    ChoiceNode choiceNode = graphView.Query<ChoiceNode>().Where(choice => choice.NodeGuid == port.InputGuid).First();
-                    tempNode.AddChoicePort(tempNode, choiceNode, true, port);
-                    tempNode.lastChoiceNode.Add(choiceNode);
-                }
-
-                tempNode.LoadValueInToField();
-                tempNode.ReloadLanguage();
-                graphView.AddElement(tempNode);
             }
         }
         private void ConnectNodes(DialogueContainerSO dialogueContainer)

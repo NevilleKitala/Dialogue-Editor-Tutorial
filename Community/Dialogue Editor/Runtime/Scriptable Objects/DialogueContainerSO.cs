@@ -18,8 +18,6 @@ namespace DialogueEditor.Dialogue
         public List<ModifierData> ModifierData = new List<ModifierData>();
         public List<BranchData> BranchData = new List<BranchData>();
         public List<DialogueData> DialogueData = new List<DialogueData>();
-        public List<ChoiceData> ChoiceData = new List<ChoiceData>();
-        public List<ChoiceConnectorData> ChoiceConnectorData = new List<ChoiceConnectorData>();
 
         public List<ScriptableObject> variables = new List<ScriptableObject>();
 
@@ -34,8 +32,6 @@ namespace DialogueEditor.Dialogue
                 tmp.AddRange(ModifierData);
                 tmp.AddRange(BranchData);
                 tmp.AddRange(DialogueData);
-                tmp.AddRange(ChoiceData);
-                tmp.AddRange(ChoiceConnectorData);
 
                 return tmp;
             }
