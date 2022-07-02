@@ -1,0 +1,11 @@
+.EventBox Button{
+	align-self: flex-end;
+}
+
+.node #title{
+	background-color: #AB3933;
+}
+
+.node #title #title-label{
+	color: white;
+}

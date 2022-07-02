@@ -1,0 +1,19 @@
+.EventBox Button{
+	align-self: flex-end;
+}
+
+.node #title{
+	background-color: #B5505A;
+}
+
+.node #title #title-label{
+	color: white;
+}
+
+.removeBtn, ObjectField, EnumField{
+	align-self: flex-start;
+}
+
+.BoxRow{
+	width: 100%;
+}

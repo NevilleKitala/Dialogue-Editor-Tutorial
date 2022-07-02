@@ -1,0 +1,7 @@
+.main, .input{
+	background-color: #785964;
+}
+
+.node #title #title-label{
+	color: white;
+}
